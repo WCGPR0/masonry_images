@@ -3,6 +3,12 @@
 .App-link {
   color: #61dafb;
 }
+  
+@media only screen and (min-width: 570px) and (max-width: 768px) {
+  #cardsColumn {
+    column-count: 2;
+  } 
+}
 
 #cardsColumn .card:hover{
   background: #fff;
@@ -14,20 +20,6 @@
   -o-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
   cursor: pointer;
-}
-
-div#cardsColumn div.thumb_small, div.thumb_small img {
-  width: 200px;
-  height: 200px;
-}
-
-div#cardsColumn div.thumb_big, div.thumb_big img {
-  width: 400px;
-  height: 400px;
-}
-
-#cardsColumn {
-  height: 900px;
 }
 
 input {

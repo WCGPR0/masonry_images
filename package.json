@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.32",
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@fortawesome/react-fontawesome": "^0.1.12",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -21,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "cross-env PORT=3001 concurrently \"npm start\" \"npx json-server --watch src/games.json\""
+    "dev": "cross-env PORT=3001 npm start"
   },
   "eslintConfig": {
     "extends": [
@@ -42,9 +39,7 @@
     ]
   },
   "devDependencies": {
-    "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
-    "json-server": "^0.16.2",
     "node-sass": "^4.14.1"
   }
 }

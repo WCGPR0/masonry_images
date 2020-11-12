@@ -3,68 +3,33 @@ import React, { useEffect, useState } from 'react';
 import {Container, Row, Col } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import CardColumns from 'react-bootstrap/CardColumns';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { InputGroup, FormControl } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
 
 function App() {
 
   const [search, setSearch] = useState("");
-  const [games, setGames] = useState([]);
-  const [games_, setGames_] = useState([]);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
-    const filteredGames = games_.filter(game_ =>
-      game_.name.toLowerCase().includes(search));
-    setGames(filteredGames);
-  }, [search, games_]);
-
-  useEffect(() => {
-    fetch('http://localhost:3000/games').then(resp => resp.json()).then(data => setGames_(data));
+    fetch('https://picsum.photos/v2/list?limit=8').then(resp => resp.json()).then(data => setImages(data));
   }, []);
-
-  function handleClick() {
-    alert('That concludes the end of this demo!');
-  }
-
-  const handleSearch = e => {
-    setSearch(e.target.value);
-  };
 
   return (
     <div className="App">
-      <Container fluid>
-        <Row>
-          <Col md={1} id="title">SLOTS</Col>
-          <Col md={{span: 3, offset: 8}}>
-            <InputGroup>
-              <FormControl
-                placeholder="Search"
-                onChange={handleSearch}
-                />
-              <InputGroup.Append>
-                <Button variant="secondary">
-                  <FontAwesomeIcon icon={faSearch} />
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
-          </Col>
-        </Row>
-        <Row>
+      <Container className="h-100">
+        <Row className="h-100 justify-content-center align-items-center">
           <Col>
           <CardColumns id="cardsColumn">
-            {games.map((game) => {
+            {images.map((image) => {
               return (
                 <OverlayTrigger
-                key={game.id}
+                key={image.id}
                 placement="bottom"
-                overlay={<Tooltip key={game.id}>{game.name}</Tooltip>}
+                overlay={<Tooltip key={image.url}>{image.author}</Tooltip>}
                 >
-                <Card key={game.id} className={game.class} onClick={handleClick}>
-                  <Card.Img src={game.src} />
+                <Card key={image.id}>
+                  <Card.Img src={image.download_url} />
                 </Card>
                 </OverlayTrigger>
               );
