@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous">       </script>   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> 
+    <style>
+      body {
+        background-color: #1d2126;
+        color: white;
+      }
+      .selectedImg {
+        border: 5px solid #FF0000;
+      }
+    </style>
+    <script>
+      
+      var pos = -1;
+
+      $(function() {
+        $.ajax( {
+          url: "https://picsum.photos/v2/list?limit=8",
+          success: function(data) {
+            var images = data.map(function(image) {
+              let imageElement = $("<img />").addClass("card-img-top").attr("src", image.download_url);
+              return $("<div />").addClass("card").append(imageElement);
+            });
+            $("#cardsColumn").html(images);
+          }
+        });
+      });
+      
+      function nav(dir) {
+        let imageElements = $("#cardsColumn img");
+        imageElements.eq(pos).removeClass("selectedImg");
+        if (dir) 
+            pos++;
+        else
+            pos--;        
+        if (pos < 0)
+          pos = imageElements.length - 1;
+        else if (pos >= imageElements.length)
+          pos = 0;
+        $("#cardsColumn img").eq(pos).addClass("selectedImg");
+      }
+    </script>
+  </head>
+  <body>
+  <a class="carousel-control-prev" role="button" onclick="nav(false)">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>    
+    <div class="container h-100">
+      <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-xs-12" id="Content">
+          <div class="card-columns" id="cardsColumn" />
+        </div>   
+      </div>  
+    </div>
+  <a class="carousel-control-next" role="button" onclick="nav(true)">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>    
+  </body>
+</html>
